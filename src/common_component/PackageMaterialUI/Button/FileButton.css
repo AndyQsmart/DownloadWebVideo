@@ -1,0 +1,6 @@
+.input-area {
+    width: 0px;
+    height: 0px;
+    position:absolute;
+    clip:rect(0 0 0 0);
+}

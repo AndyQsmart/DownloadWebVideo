@@ -1,26 +1,42 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import './common_css/normalize.css'
+import './common_css/main.css'
+import { Provider } from 'react-redux';
+import ReduxHelper from './redux/ReduxHelper';
+import { Router } from './Routes';
+import DevelopTools from './common_js/DevelopTools';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import Color from './common_js/Color';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+DevelopTools.init()
+
+let store = ReduxHelper.createStore()
+
+// mutirial主题
+const theme = createMuiTheme({
+    typography: {
+        useNextVariants: true,
+    },
+    spacing: 10,
+    palette: {
+        primary: { main: Color.primary },
+        secondary: { main: Color.secondary },
+        text: {
+            primary: Color.text_primary,
+            secondary: Color.text_secondary,
+        },
+    },
+})
+
+const App = () => (
+    <Provider store={store}>
+        <ThemeProvider theme={theme}>
+            {/* <MuiPickersUtilsProvider utils={DateFnsUtils} locale={zhCNLocale} > */}
+                <Router />
+            {/* </MuiPickersUtilsProvider> */}
+        </ThemeProvider>
+    </Provider>
+)
 
 export default App;
