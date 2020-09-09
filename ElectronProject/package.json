@@ -1,0 +1,17 @@
+{
+    "name": "download_web_video",
+    "version": "0.1.0",
+    "private": true,
+    "main": "main.js",
+    "dependencies": {
+        "request": "^2.88.0"
+    },
+    "devDependencies": {
+        "electron": "^7.1.2",
+        "electron-builder": "^22.8.0"
+    },
+    "scripts": {
+        "start": "electron .",
+        "build-win": "electron-builder --win --x64 --config electron-builder.yml"
+    }
+}

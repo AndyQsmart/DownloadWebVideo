@@ -1,0 +1,17 @@
+appId: com.zhibing.live_tools
+productName: 实用工具
+
+directories:
+  buildResources: build
+  output: build_electron
+
+win:
+  icon: build/icons/logo.ico
+  target:
+    - nsis
+    - zip
+
+mac:
+  target:
+    - dmg
+    - zip
