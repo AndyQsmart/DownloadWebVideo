@@ -26,6 +26,7 @@ function createWindow() {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,  // 解决require is not defined问题
             webviewTag: true,  // 解决webview无法显示问题
+            backgroundThrottling: false, // 是否在页面成为背景时限制动画和计时器。这也会影响到 Page Visibility API
         }
     })
 
@@ -72,6 +73,11 @@ function createWindow() {
         }
     })
 
+    app.on('before-quit', ()=>{
+        // console.log('before-quit')
+        force_quit = true
+    })
+
     CreateTray({
         forceQuit: ()=>{
             force_quit = true
@@ -83,6 +89,8 @@ function createWindow() {
         }
     })
 }
+
+app.commandLine.appendSwitch("disable-background-timer-throttling")
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
