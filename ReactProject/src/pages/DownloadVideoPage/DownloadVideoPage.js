@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { withStyles } from '@material-ui/core/styles'
-import { clipboard } from 'electron'
+const { clipboard } = require('electron')
 import DevelopTools from '../../common_js/DevelopTools';
 import NavBar from '../../instance_component/NavBar/NavBar';
 import TextField from '@material-ui/core/TextField'
@@ -79,7 +79,7 @@ class DownloadVideoPage extends PureComponent {
 
     clearRequestListen() {
         let webview = this.refs.webview
-        if (!webview) return
+        if (!webview || !webview.getWebContents) return
         let webContents = webview.getWebContents()
         const filter = {
             urls: ['*://*/*']

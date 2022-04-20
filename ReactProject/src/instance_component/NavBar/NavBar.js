@@ -31,6 +31,10 @@ class NavBar extends PureComponent {
         Routes.navigateTo('/download/downloadvideo')
     }
 
+    goSaveVideoPage() {
+        Routes.navigateTo('/download/savevideo')
+    }
+
     render() {
         return (
             <Box clone width={200}
@@ -61,6 +65,14 @@ class NavBar extends PureComponent {
                         />
                         <Typography>
                             视频提取
+                        </Typography>
+                    </ListItem>
+                    <ListItem button style={js_style.list_item} onClick={this.goSaveVideoPage} >
+                        <Icon style={js_style.icon}
+                            name='cloud-download'
+                        />
+                        <Typography>
+                            视频下载
                         </Typography>
                     </ListItem>
                 </List>

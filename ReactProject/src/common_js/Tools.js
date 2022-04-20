@@ -1,5 +1,3 @@
-import { ipcRenderer } from 'electron'
-
 const Key = {
     ENTER: 13,
     R: 82,
@@ -69,9 +67,12 @@ class Tools {
     static base64ToBlob(urlData, type='image/jpeg') {
         try {
             var arr = urlData.split(',')
-            var mime = arr[0].match(/:(.*?);/)[1] || type;
+            let bytes_str = arr[arr.length-1]
+            arr.splice(arr.length-1, 1)
+            let mine_str = arr.join(',')
+            var mime = mine_str.match(/:(.*?);/)[1] || type;
             // 去掉url的头，并转化为byte
-            var bytes = window.atob(arr[1]);
+            var bytes = window.atob(bytes_str);
             // 处理异常,将ascii码小于0的转换为大于0
             var ab = new ArrayBuffer(bytes.length);
             // 生成视图（直接针对内存）：8位无符号整数，长度1个字节
@@ -86,6 +87,7 @@ class Tools {
             });
         }
         catch (e) {
+            console.log('Tools.base64ToBlob:error:', e)
             var ab = new ArrayBuffer(0);
             return new Blob([ab], {
                 type: type,

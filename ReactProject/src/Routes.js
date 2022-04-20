@@ -5,10 +5,12 @@ import ReduxHelper from './redux/ReduxHelper';
 import HomePage from './pages/HomePage/HomePage';
 import DownloadVideoPage from './pages/DownloadVideoPage/DownloadVideoPage';
 import DownloadImagePage from './pages/DownloadImagePage/DownloadImagePage';
+import SaveVideoPage from './pages/SaveVideoPage/SaveVideoPage';
 
 const RouteMap = {
     '/': HomePage,
     '/download/downloadvideo': DownloadVideoPage,
+    '/download/savevideo': SaveVideoPage,
     '/download/downloadimage': DownloadImagePage,
 }
 

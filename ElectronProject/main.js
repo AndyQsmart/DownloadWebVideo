@@ -1,7 +1,6 @@
 // Modules to control application life and create native browser window
-const { app, ipcMain, dialog, BrowserWindow } = require('electron')
+const { app, ipcMain, dialog, BrowserWindow, BrowserView } = require('electron')
 const path = require('path')
-const FileUtil = require('./src/common_js/FileUtil')
 const Tools = require('./src/common_js/Tools')
 const CreateTray = require('./src/instance_js/CreateTray')
 
@@ -12,7 +11,6 @@ let force_quit = false
 
 if (!app.requestSingleInstanceLock()) {
     app.quit()
-    return
 }
 
 function createWindow() {
@@ -25,7 +23,10 @@ function createWindow() {
         webPreferences: {
             preload: path.join(__dirname, 'preload.js'),
             nodeIntegration: true,  // 解决require is not defined问题
+            contextIsolation: false, // 好像是解决require报错问题
             webviewTag: true,  // 解决webview无法显示问题
+            allowRunningInsecureContent: true,
+            webSecurity: false, // 跨域问题
             backgroundThrottling: false, // 是否在页面成为背景时限制动画和计时器。这也会影响到 Page Visibility API
         }
     })
@@ -91,6 +92,7 @@ function createWindow() {
 }
 
 app.commandLine.appendSwitch("disable-background-timer-throttling")
+app.commandLine.appendSwitch('disable-site-isolation-trials') // 修复webview中iframe跨域问题
 
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
